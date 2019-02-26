@@ -1,10 +1,20 @@
-<div class="row">
-	<div class="col">
-		{{#each dbArticles}}
-		<div class="row">
-			<h3>{{title}}</h3>
-			<p class="lead">{{summary}}</p>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			{{#each dbArticles}}
+			<div class="row bg-red rounded">
+				<h3>
+					<a class="white" href={{link}}>{{title}}</a>
+				</h3>
+			</div>
+			<div class="row">
+				<p class="lead">{{summary}}</p>
+			</div>
+			<div class="row" id="comment-section">
+				{{> comments/prior-comments-block}}
+			</div>
+				{{> comments/add-comment-block }}
+			{{/each}}
 		</div>
-		{{/each}}
 	</div>
 </div>
