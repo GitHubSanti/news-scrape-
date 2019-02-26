@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	{{!-- Bootstrap CDN --}}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.0.0/materia/bootstrap.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+	{{!-- Background coloring --}}
+	<link href="https://unpkg.com/basscss@7.1.1/css/basscss.min.css" rel="stylesheet">
+	{{!-- jQuery --}}
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="/assets/js/newsScraper.js"></script>
+	<title>Mongoose Newscraper!</title>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand navbar-dark bg-red">
+		<a class="navbar-brand" href="/">Mongo News Scraper</a>
+		<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="/">Home
+						<span class="sr-only">(current)</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/saved">Saved Articles</a>
+				</li>
+				<li class="nav-item">
+					<a class="btn btn-primary bg-white scrape-new">SCRAPE NEW ARTICLES!</a>
+				</li>
+				<li class="nav-item">
+					<a class="btn btn-primary bg-white clear ml-1">CLEAR ARTICLES!</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="jumbotron bg-red">
+			<h1 class="display-4 text-center white"> Latest News!</h1>
+		</div>
+		{{{ body }}}
+</body>
+
+</html>
