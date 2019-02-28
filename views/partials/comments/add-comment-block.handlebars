@@ -1,10 +1,10 @@
 <form>
     <div class="row mb-2 justify-content-center">
-        <div class="col-6">
-            <input type="text" class="form-control" id="new-comment" placeholder="new comment">
+        <div class="col-6 my-auto">
+            <input type="text" class="form-control border rounded px-2" placeholder="new comment" article-id={{_id}}>
         </div>
-        <div class="col-1">
-            <button type="submit" class="btn bg-green mb-2">ADD COMMENT</button>
+        <div class="col-1 my-auto">
+            <button type="submit" class="btn bg-green add-comment-btn" id={{_id}}>ADD COMMENT</button>
         </div>
     </div>
 </form>

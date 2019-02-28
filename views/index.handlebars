@@ -7,13 +7,11 @@
 					<a class="white" href={{link}}>{{title}}</a>
 				</h3>
 			</div>
-			<div class="row">
+			<div class="row mx-auto">
 				<p class="lead">{{summary}}</p>
 			</div>
-			<div class="row" id="comment-section">
 				{{> comments/prior-comments-block}}
-			</div>
-				{{> comments/add-comment-block }}
+				{{> comments/add-comment-block}}
 			{{/each}}
 		</div>
 	</div>

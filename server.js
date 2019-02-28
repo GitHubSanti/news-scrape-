@@ -44,12 +44,11 @@ mongoose.connect("mongodb://localhost/newsScraper", {
   useCreateIndex: true
 });
 
-// Import routes and give the server access to them.
-// var routes = require("./controllers/burgers_controller.js");
-// app.use(routes);
-
 // Scrape data from one site and place it into the mongodb db
 app.get("/scrape", function(req, res) {
+  // Remove articles and comments
+  db.Article.remove({}, () => console.log(`Articles removed`));
+  db.Comment.remove({}, () => console.log(`Comments removed`));
   // Make a request via axios for the news section of `ycombinator`
   axios.get("https://www.washingtonpost.com/").then(function(response) {
     // Load the html body from axios into cheerio
@@ -89,18 +88,47 @@ app.get("/scrape", function(req, res) {
   res.send("Scrape Complete");
 });
 
-// Homepage
+// Brings up Homepage
 app.get("/", function(req, res) {
   db.Article.find({})
+    .populate("comments")
     .then(function(mongooseRes) {
-      // res.json(dbArticle)
+      console.log(mongooseRes);
       var articlesToShow = {
         dbArticles: mongooseRes
-      }
+      };
       // console.log(articlesToShow)
       res.render("index", articlesToShow);
     })
     .catch(function(err) {
+      res.json(err);
+    });
+});
+
+// Adds new comment to article of interest
+app.post("/newComment/:id", function(req, res) {
+  db.Comment.create(req.body)
+    .then(function(dbComment) {
+      return db.Article.findOneAndUpdate(
+        {
+          _id: req.params.id
+        },
+        {
+          $push: {
+            comments: dbComment._id
+          }
+        },
+        {
+          new: true
+        }
+      );
+    })
+    .then(function(dbArticles) {
+      res.json(dbArticles);
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      console.log(err);
       res.json(err);
     });
 });
