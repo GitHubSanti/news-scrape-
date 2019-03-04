@@ -135,7 +135,7 @@ app.post("/newComment/:id", function(req, res) {
 // Deletes specified reader comment
 app.delete("/eraseComment/:id", function(req, res) {
   console.log(req.params.id);
-  db.Comment.findByIdAndRemove({_id: req.params.id });
+  db.Comment.remove({_id: req.params.id });
   // db.Comment.deleteOne( _id: req.params.id)
   // .then(function(dbComment) {
   //   return db.Article.findOneAndUpdate(
