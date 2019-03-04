@@ -14,10 +14,30 @@ $(document).ready(function() {
         .trim();
       console.log(toMongoDB);
       $.post(url, toMongoDB, function(dbres, status) {
-        if (status=="success") {
-          
+        if (status == "success") {
         }
       });
     }
+  });
+
+  // Function to delete comments
+  $(document).on("click", ".prior-comment", function(event) {
+    let deletecomment = () => {
+
+    };
+    
+    let comment = $(this).html();
+    if (
+      confirm(
+        `Are you sure you want to delete the following comment?\n${comment}`
+        )
+        ) {
+          deletecomment()
+    }
+  });
+
+  // Acquire all articles and associated comments
+  $.getJSON("/articles", function(data) {
+    console.log(data)
   });
 });

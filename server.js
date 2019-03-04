@@ -38,8 +38,10 @@ app.set("view engine", "handlebars");
 // Require all models
 var db = require("./models");
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsScraper";
+
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/newsScraper", {
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useCreateIndex: true
 });
@@ -86,6 +88,21 @@ app.get("/scrape", function(req, res) {
 
   // Send a "Scrape Complete" message to the browser
   res.send("Scrape Complete");
+});
+
+// Route for getting all Articles from the db
+app.get("/articles", function(req, res) {
+  // Grab every document in the Articles collection
+  db.Article.find({})
+    .populate("comments")
+    .then(function(dbArticle) {
+      // If we were able to successfully find Articles, send them back to the client
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
 });
 
 // Brings up Homepage
