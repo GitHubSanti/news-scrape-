@@ -3,7 +3,6 @@ require("dotenv").config();
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-
 var cheerio = require("cheerio");
 var axios = require("axios");
 
@@ -76,7 +75,6 @@ app.get("/scrape", function(req, res) {
         db.Article.create(result)
           .then(function(dbArticle) {
             // View the added result in the console
-            console.log(dbArticle);
           })
           .catch(function(err) {
             // If an error occurred, log it
@@ -90,27 +88,11 @@ app.get("/scrape", function(req, res) {
   res.send("Scrape Complete");
 });
 
-// Route for getting all Articles from the db
-app.get("/articles", function(req, res) {
-  // Grab every document in the Articles collection
-  db.Article.find({})
-    .populate("comments")
-    .then(function(dbArticle) {
-      // If we were able to successfully find Articles, send them back to the client
-      res.json(dbArticle);
-    })
-    .catch(function(err) {
-      // If an error occurred, send it to the client
-      res.json(err);
-    });
-});
-
 // Brings up Homepage
 app.get("/", function(req, res) {
   db.Article.find({})
     .populate("comments")
     .then(function(mongooseRes) {
-      console.log(mongooseRes);
       var articlesToShow = {
         dbArticles: mongooseRes
       };
@@ -149,6 +131,35 @@ app.post("/newComment/:id", function(req, res) {
       res.json(err);
     });
 });
+
+// Deletes specified reader comment
+app.put("/eraseComment/:id", function(req, res) {
+  
+  console.log(db.Comment.findOneAndRemove({ _id: req.params.id }))
+    // .then(function(dbComment) {
+    //   return db.Article.findOneAndUpdate(
+    //     {
+    //       _id: req.params.id
+    //     },
+    //     {
+    //       $push: {
+    //         comments: dbComment._id
+    //       }
+    //     },
+    //     {
+    //       new: true
+    //     }
+    //   );
+    })
+//     .then(function(dbArticles) {
+//       res.json(dbArticles);
+//     })
+//     .catch(function(err) {
+//       // If an error occurs, send it back to the client
+//       console.log(err);
+//       res.json(err);
+//     });
+// });
 
 app.listen(PORT, function() {
   // Log (server-side) when our server has started

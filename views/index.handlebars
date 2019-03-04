@@ -10,8 +10,11 @@
 			<div class="row mx-auto">
 				<p class="lead">{{summary}}</p>
 			</div>
-				{{> comments/prior-comments-block}}
-				{{> comments/add-comment-block}}
+			<div class="row justify-content-end">
+				<b>Reader comments: </b>
+			</div>
+			{{> comments/prior-comments-block}}
+			{{> comments/add-comment-block}}
 			{{/each}}
 		</div>
 	</div>
