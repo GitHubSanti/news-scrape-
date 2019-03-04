@@ -133,33 +133,34 @@ app.post("/newComment/:id", function(req, res) {
 });
 
 // Deletes specified reader comment
-app.put("/eraseComment/:id", function(req, res) {
-  
-  console.log(db.Comment.findOneAndRemove({ _id: req.params.id }))
-    // .then(function(dbComment) {
-    //   return db.Article.findOneAndUpdate(
-    //     {
-    //       _id: req.params.id
-    //     },
-    //     {
-    //       $push: {
-    //         comments: dbComment._id
-    //       }
-    //     },
-    //     {
-    //       new: true
-    //     }
-    //   );
-    })
-//     .then(function(dbArticles) {
-//       res.json(dbArticles);
-//     })
-//     .catch(function(err) {
-//       // If an error occurs, send it back to the client
-//       console.log(err);
-//       res.json(err);
-//     });
-// });
+app.delete("/eraseComment/:id", function(req, res) {
+  console.log(req.params.id);
+  db.Comment.findByIdAndRemove({_id: req.params.id });
+  // db.Comment.deleteOne( _id: req.params.id)
+  // .then(function(dbComment) {
+  //   return db.Article.findOneAndUpdate(
+  //     {
+  //       _id: req.params.id
+  //     },
+  //     {
+  //       $push: {
+  //         comments: dbComment._id
+  //       }
+  //     },
+  //     {
+  //       new: true
+  //     }
+  //   );
+  // })
+  //     .then(function(dbArticles) {
+  //       res.json(dbArticles);
+  //     })
+  //     .catch(function(err) {
+  //       // If an error occurs, send it back to the client
+  //       console.log(err);
+  //       res.json(err);
+  //     });
+});
 
 app.listen(PORT, function() {
   // Log (server-side) when our server has started

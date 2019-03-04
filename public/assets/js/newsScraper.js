@@ -45,14 +45,14 @@ $(document).ready(function() {
       let urlEndPoint = `/eraseComment/${commentId}`;
       $.ajax({
         url: urlEndPoint,
-        type: `PUT`,
+        type: `DELETE`,
         success: function() {
           console.log(`Put fxn executed!`);
         }
       });
     };
 
-    let comment = $(this).html();
+    let comment = $(this).text();
     let commentId = $(this).attr(`comment-id`);
     if (
       confirm(
